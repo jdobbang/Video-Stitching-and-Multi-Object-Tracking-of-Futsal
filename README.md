@@ -4,6 +4,10 @@ Stitching multi-videos into an entire view of futsal game and analyze it by trac
 
 ## Example
 ![img](./img/frame.png)
-<center>Fig 1: example image of result</center> 
+
+## To do list
+- [ ] Update Git 
+- [ ] Clearly stitching
+- [ ] Promote Prototype
 
 
