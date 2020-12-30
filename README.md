@@ -1,2 +1,9 @@
 # Futsal-Image-Playing-Analysis-Service
-My goal is to stitch multi-videos into an entire view of futsal game and analyze it by tracking players and a ball
+## Goal 
+Stitching multi-videos into an entire view of futsal game and analyze it by tracking players and a ball
+
+## Example
+![img](./img/frame.png)
+<center>Fig 1: example image of result</center> 
+
+
