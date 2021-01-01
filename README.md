@@ -3,14 +3,14 @@
 Stitching multi-videos into an entire view of futsal game and analyze it by tracking players and a ball
 
 ## Left, Right Source Frame
-![img](./img/left.jpg)
-![img](./img/right.jpg) 
+![img](./img/left.JPG)
+![img](./img/right.JPG) 
 
 ## Stitched Frame
 ![img](./img/frame.png)
 
 ## Tracking Frame
-![img](./img/tracking.jpg)
+![img](./img/tracking.JPG)
 
 ## Camera
 ![img](./img/camera.jpg)
