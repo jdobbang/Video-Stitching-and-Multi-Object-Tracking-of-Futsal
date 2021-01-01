@@ -3,7 +3,7 @@
 Stitching multi-videos into an entire view of futsal game and analyze it by tracking players and a ball
 
 ## Left, Right Source Frame
-![img](./img/left.JPG){: width="100" height="100"}
+![img](./img/left.JPG)
 ![img](./img/right.JPG) 
 
 ## Stitched Frame
