@@ -16,7 +16,7 @@ Stitching multi-videos into an entire view of futsal game and analyze it by trac
 
 ## data output(hitmap,average location)
 ![img](./img/hitmap.JPG)
-![img](./img/averaage location.JPG)
+![img](./img/average location.JPG)
 
 ## Camera : Top down view ( 4m ) 
 ![img](./img/camera.jpg)
