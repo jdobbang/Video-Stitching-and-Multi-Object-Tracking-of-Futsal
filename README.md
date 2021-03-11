@@ -9,17 +9,21 @@ Stitching multi-videos into an entire view of futsal game and analyze it by trac
 ## Stitched Frame 
 ![img](./img/frame.png)
 ![img](./img/HomographyControl.png)
+![img](./img/grame00375.jpg)
 
 ## Tracking Frame 
 ![img](./img/tracking.JPG)
 
+## data output(hitmap,average location)
+![img](./img/hitmap.JPG)
+![img](./img/average location.JPG)
+
 ## Camera : Top down view ( 4m ) 
 ![img](./img/camera.jpg)
 
-## To do list
-- [ ] mark 1/2 below point of the box  
-- [ ] perspective warping to minimap
-- [ ] create csv files of x,y data of objects
+## To do list  
+- [ ] perspective warping of coordinates
 - [ ] add ball class
+- [ ] raise the accuracy of tracking
 
 
