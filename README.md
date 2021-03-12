@@ -12,16 +12,28 @@ We expect that we can take the top-down view by this tripod at all type of futsa
 
 ## Stitched Frame 
 We need stitching of two videos for the entire view of the field
+
+<Warping using SIFT algorithm>
 ![img](./img/frame.png)
+<Warping by user>
 ![img](./img/HomographyControl.png)
+<warping by user - crop >
 ![img](./img/frame00357.jpg)
 
 ## Tracking Frame 
+We use DeepSORT algorithm to track multi-objects(players,ball)
 
+<Track the initial version of stitching>
 ![img](./img/tracking.JPG)
+<track the second version of stitching>
+  not yer
 
 ## data output(hitmap,average location)
+
+We plot some data using .csv dtat including objects coordinate
+<hit map>
 ![img](./img/hitmap.JPG)
+<average location>
 ![img](./img/average location.JPG)
 
 ## To do list  
