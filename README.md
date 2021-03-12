@@ -31,8 +31,10 @@ Track the second version of stitching
 ## data output(hitmap,average location)
 
 We plot some data using .csv dtat including objects coordinate
+
 hit map
 ![img](./img/hitmap.JPG)
+
 average location
 ![img](./img/average_location.JPG)
 
