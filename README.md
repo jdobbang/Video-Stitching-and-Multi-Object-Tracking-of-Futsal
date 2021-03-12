@@ -14,7 +14,7 @@ We expect that we can take the top-down view by this tripod at all type of futsa
 We need stitching of two videos for the entire view of the field
 ![img](./img/frame.png)
 ![img](./img/HomographyControl.png)
-![img](./img/grame00357.jpg)
+![img](./img/rame00357.jpg)
 
 ## Tracking Frame 
 
