@@ -9,7 +9,7 @@ Stitching multi-videos into an entire view of futsal game and analyze it by trac
 ## Stitched Frame 
 ![img](./img/frame.png)
 ![img](./img/HomographyControl.png)
-![img](./img/grame00375.jpg)
+![img](./img/frame00375.jpg)
 
 ## Tracking Frame 
 ![img](./img/tracking.JPG)
