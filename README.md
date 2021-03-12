@@ -34,7 +34,7 @@ We plot some data using .csv dtat including objects coordinate
 hit map
 ![img](./img/hitmap.JPG)
 average location
-![img](./img/average location.JPG)
+![img](./img/average_location.JPG)
 
 ## To do list  
 - [ ] perspective warping of coordinates
