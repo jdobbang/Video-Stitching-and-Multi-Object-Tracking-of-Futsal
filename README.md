@@ -26,7 +26,7 @@ We use DeepSORT algorithm to track multi-objects(players,ball)
 Track the initial version of stitching
 ![img](./img/tracking.JPG)
 Track the second version of stitching + coordinate point
-![img](./img/tracking+.JPG)  
+![img](./img/tracking+.jpg)  
 
 ## data output(hitmap,average location)
 
