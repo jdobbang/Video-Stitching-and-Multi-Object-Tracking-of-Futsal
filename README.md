@@ -13,34 +13,35 @@ We expect that we can take the top-down view by this tripod at all type of futsa
 ## Stitched Frame 
 We need stitching of two videos for the entire view of the field
 
-Warping using SIFT algorithm
+Warping using SIFT algorithm(@sift_video.cpp)
 ![img](./img/frame.png)
-Warping by user
+Warping by user defined homography 
 ![img](./img/HomographyControl.png)
-Warping by user - crop 
+Crop version( user defined homography)(@ StitchingControl.cpp)
 ![img](./img/frame00001.jpg)
 
 ## Tracking Frame 
 We use DeepSORT algorithm to track multi-objects(players,ball)
 
-Track the initial version of stitching
+Track the initial version of stitching (DeepSORT + YOLOv3)
 ![img](./img/tracking.JPG)
-Track the second version of stitching + coordinate point
-![img](./img/tracking+.jpg)  
+Track the user defined homography stitching + coordinate point (DeepSORT + YOLOv3 , @object_trackin.py)
+![img](./img/tracking+.jpg)
+Track the user defined homography stitching + cooordinate point (DeepSORT + YOLOv4)
 
-## data output(hitmap,average location)
+## Data Visualization
 
-We plot some data using .csv dtat including objects coordinate
+We first have to convert pixel coordinate to real world coordination by calculating perspective homography
 
-hit map
-![img](./img/hitmap.JPG)
+field width : 17.06 m / field heigth : 7.05 m (multiply 28 for easy visualization)
 
-average location
-![img](./img/average_location.JPG)
+pixel coordinate : left-top [165,130] , left-bottom [2,270] , right-bottom [870,263], right-top [701,131]
 
-## To do list  
-- [ ] perspective warping of coordinates
-- [ ] add ball class
-- [ ] raise the accuracy of tracking
+hit map of person_ID_1
+![img](./img/hitMap.JPG)
+
+average location of person_ID_1
+![img](./img/averageLocation.JPG)
+
 
 
