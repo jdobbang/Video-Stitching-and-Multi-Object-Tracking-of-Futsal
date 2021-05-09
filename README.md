@@ -28,7 +28,7 @@ Track the initial version of stitching (DeepSORT + YOLOv3)
 Track the user defined homography stitching + coordinate point (DeepSORT + YOLOv3 , @object_trackin.py)
 ![img](./img/tracking+.jpg)
 Track the user defined homography stitching + cooordinate point (DeepSORT + YOLOv4)
-
+![img](./img/YOLOv4_tracking.png)
 ## Data Visualization
 
 We first have to convert pixel coordinate to real world coordination by calculating perspective homography
