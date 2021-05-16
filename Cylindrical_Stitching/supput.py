@@ -1,14 +1,61 @@
-import os
-import sys
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 import math
 
-
 def feature_matching(img1, img2, savefig=False):
+    
     # Initiate SIFT detector
     sift = cv2.SIFT_create()
+
+    
+    # find the keypoints and descriptors with SIFT
+    kp1, des1 = sift.detectAndCompute(img1,None)
+    kp2, des2 = sift.detectAndCompute(img2,None)
+    # FLANN parameters
+    FLANN_INDEX_KDTREE = 1
+    index_params = dict(algorithm = FLANN_INDEX_KDTREE, trees = 5)
+    search_params = dict(checks=50)   # or pass empty dictionary
+    flann = cv2.FlannBasedMatcher(index_params,search_params)
+    matches2to1 = flann.knnMatch(des2,des1,k=2)
+
+    matchesMask_ratio = [[0,0] for i in range(len(matches2to1))]
+    match_dict = {}
+    for i,(m,n) in enumerate(matches2to1):
+        if m.distance < 0.7*n.distance:
+            matchesMask_ratio[i]=[1,0]
+            match_dict[m.trainIdx] = m.queryIdx
+
+    good = []
+    recip_matches = flann.knnMatch(des1,des2,k=2)
+    matchesMask_ratio_recip = [[0,0] for i in range(len(recip_matches))]
+
+    for i,(m,n) in enumerate(recip_matches):
+        if m.distance < 0.7*n.distance: # ratio
+            if m.queryIdx in match_dict and match_dict[m.queryIdx] == m.trainIdx: #reciprocal
+                good.append(m)
+                matchesMask_ratio_recip[i]=[1,0]
+
+
+
+    if savefig:
+        draw_params = dict(matchColor = (0,255,0),
+                           singlePointColor = (255,0,0),
+                           matchesMask = matchesMask_ratio_recip,
+                           flags = 0)
+        img3 = cv2.drawMatchesKnn(img1,kp1,img2,kp2,recip_matches,None,**draw_params)
+
+        plt.figure(),plt.xticks([]),plt.yticks([])
+        plt.imshow(img3,)
+        plt.savefig("feature_matching.png",bbox_inches='tight')
+
+    return ([ kp1[m.queryIdx].pt for m in good ],[ kp2[m.trainIdx].pt for m in good ])
+
+def feature_matching_SURF(img1, img2, savefig=False):
+    # Initiate SIFT detector
+    sift = cv2.SIFT_create()
+
+    
     # find the keypoints and descriptors with SIFT
     kp1, des1 = sift.detectAndCompute(img1,None)
     kp2, des2 = sift.detectAndCompute(img2,None)
@@ -105,11 +152,6 @@ def getTransform(src, dst, method='affine'):
 
     return (M, pts1, pts2, mask)
    
-# ===================================================
-# ================ Perspective Warping ==============
-# ===================================================
-
-
 def Laplacian_blending(img1, img2):
     
     levels = 3
@@ -142,13 +184,12 @@ def Laplacian_blending(img1, img2):
         # Merging first and second half of first and second images respectively at each level in pyramid
         mask1 = np.zeros(lImg1.shape)
         mask2 = np.zeros(lImg2.shape)
-        mask1[:, 0:int(cols/ 1.7)] = 1
-        mask2[:, int(cols / 1.7):] = 1
-
+        mask1[:, 0:int(cols * 0.67 )] = 1 #test image : 1334 x 750 
+        mask2[:, int(cols *0.67 ):] = 1
+        
         tmp1 = np.multiply(lImg1, mask1.astype('float32'))
         tmp2 = np.multiply(lImg2, mask2.astype('float32'))
-        tmp = np.add(tmp1, tmp2)
-        
+        tmp = tmp1 + tmp2
         laplacianList.append(tmp)
     
     img_out = laplacianList[0]
@@ -160,24 +201,11 @@ def Laplacian_blending(img1, img2):
     np.clip(img_out, 0, 255, out=img_out)
     return img_out.astype('uint8')
 
-# ===================================================
-# =============== Cynlindrical Warping ==============
-# ===================================================
-
-# Stich two images using a mask. Copy warpedImage in baseImage only if value in mask is 255.
-def Stitch_images(baseImage, warpedImage, warpedImageMask):
-    rows,cols = baseImage.shape
-    for r in range(0,rows):
-        for c in range(0,cols):
-            if warpedImageMask[r][c] == 255:
-                baseImage[r][c] = warpedImage[r][c]
-    return baseImage
-
-def Laplacian_cylindrical_warping(img1, img2):
+def Laplacian_cylindrical_warping(M21,img1, img2):
     
     # Write your codes here
     h,w = img1.shape
-    f = 425
+    f =520
     K = np.array([[f, 0, w/2], [0, f, h/2], [0, 0, 1]]) # mock calibration matrix
     (img1cyl, mask1) = cylindricalWarpImage(img1, K)  #Returns: (image, mask)
     (img2cyl, mask2) = cylindricalWarpImage(img2, K)
@@ -186,38 +214,64 @@ def Laplacian_cylindrical_warping(img1, img2):
     # Add padding to allow space around the center image to paste other images.
     img1cyl = cv2.copyMakeBorder(img1cyl,50,50,300,300, cv2.BORDER_CONSTANT)
     
+    transformedImage2 = cv2.warpAffine(img2cyl, M21, (img1cyl.shape[1],img1cyl.shape[0]))
+  
+    # Stich image1 and image2 using mask.
+    transformedImage21 = Laplacian_blending( img1cyl,transformedImage2)
+
+    return transformedImage21
+
+def Laplacian_cylindrical_warping_Calculation(img1, img2):
+    
+    # Write your codes here
+    h,w = img1.shape
+    f =520
+    K = np.array([[f, 0, w/2], [0, f, h/2], [0, 0, 1]]) # mock calibration matrix
+    (img1cyl, mask1) = cylindricalWarpImage(img1, K)  #Returns: (image, mask)
+    (img2cyl, mask2) = cylindricalWarpImage(img2, K)
+
+    # Add padding to allow space around the center image to paste other images.
+    img1cyl = cv2.copyMakeBorder(img1cyl,50,50,300,300, cv2.BORDER_CONSTANT)
+    
     # Calculate Affine transformation to transform image2 in plane of image1.
     (M21, pts2, pts1, mask4) = getTransform(img2cyl, img1cyl, 'affine')
 
-    # Transform image2 and mask2 in plane of image1.
-    transformedImage2 = cv2.warpAffine(img2cyl, M21, (img1cyl.shape[1],img1cyl.shape[0]))
-    
-    transformedMask2 = cv2.warpAffine(mask2, M21, (img1cyl.shape[1],img1cyl.shape[0]))
-    
-    # Stich image1 and image2 using mask.
-    #transformedImage21 = Stitch_images(img1cyl, transformedImage2, transformedMask2)
-    transformedImage21 = Laplacian_blending( img1cyl,transformedImage2)
-    cv2.imshow("transformedImage21",transformedImage21)
-    cv2.waitKey(0)
-    # Transformation image3 in plane of image1.
-    """
-    (M31, pts2, pts1, mask5) = getTransform(img3cyl, img1cyl, 'affine')
+    return M21
 
-    transformedImage3 = cv2.warpAffine(img3cyl, M31, (img1cyl.shape[1],img1cyl.shape[0]))
-    transformedMask3 = cv2.warpAffine(mask3, M31, (img1cyl.shape[1],img1cyl.shape[0]))
-    transformedImage31 = Stitch_images(transformedImage21, transformedImage3, transformedMask3)
-    
-    # Combine both transformed images using Laplacian.
-    output_image = Laplacian_blending(transformedImage31, transformedImage21)
-    
-    cv2.imshow("output_image",output_image)
-    cv2.waitKey(0)
-    """
-    cv2.destroyAllWindows()
+cap1 = cv2.VideoCapture("./input/video_left.mp4")
+cap2 = cv2.VideoCapture("./input/video_right.mp4")
 
-input_image1 = cv2.imread('./left.png', 0)
-input_image2 = cv2.imread('./right.png', 0)
-#input_image3 = cv2.imread('./input3.png', 0) 
- 
-# Call the function
-Laplacian_cylindrical_warping(input_image1, input_image2)
+ret1, frame1 = cap1.read()
+ret2, frame2 = cap2.read()
+
+#gray scale
+input_image1 = cv2.cvtColor(frame1, cv2.COLOR_BGR2GRAY)
+input_image2 = cv2.cvtColor(frame2, cv2.COLOR_BGR2GRAY)
+
+ #resize
+image1_resize = cv2.resize(input_image1, dsize=(0, 0), fx=0.3, fy=0.3, interpolation=cv2.INTER_LINEAR)
+image2_resize = cv2.resize(input_image2, dsize=(0, 0), fx=0.3, fy=0.3, interpolation=cv2.INTER_LINEAR)
+
+M21 = Laplacian_cylindrical_warping_Calculation(image1_resize,image2_resize)
+    
+while(1):
+    #read frame
+    ret1, frame1 = cap1.read()
+    ret2, frame2 = cap2.read() 
+    
+    #gray scale : 일단은 option
+    input_image1 = cv2.cvtColor(frame1, cv2.COLOR_BGR2GRAY)
+    input_image2 = cv2.cvtColor(frame2, cv2.COLOR_BGR2GRAY)
+    
+    #resize
+    image1_resize = cv2.resize(input_image1, dsize=(0, 0), fx=0.3, fy=0.3, interpolation=cv2.INTER_LINEAR)
+    image2_resize = cv2.resize(input_image2, dsize=(0, 0), fx=0.3, fy=0.3, interpolation=cv2.INTER_LINEAR)
+    # Call the function and show the frames
+    output = Laplacian_cylindrical_warping(M21,image1_resize, image2_resize)
+    cv2.imshow("output",output)
+    if cv2.waitKey(30) & 0xFF == ord('q'):
+        break
+
+cap1.release()
+cap2.release()
+cv2.destroyAllWindows()

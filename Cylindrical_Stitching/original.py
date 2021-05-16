@@ -40,7 +40,7 @@ Usage example:
 '''
 def feature_matching(img1, img2, savefig=False):
     # Initiate SIFT detector
-    sift = cv2.xfeatures2d.SIFT_create()
+    sift = cv2.SIFT_create()
     # find the keypoints and descriptors with SIFT
     kp1, des1 = sift.detectAndCompute(img1,None)
     kp2, des2 = sift.detectAndCompute(img2,None)
@@ -51,7 +51,7 @@ def feature_matching(img1, img2, savefig=False):
     flann = cv2.FlannBasedMatcher(index_params,search_params)
     matches2to1 = flann.knnMatch(des2,des1,k=2)
 
-    matchesMask_ratio = [[0,0] for i in xrange(len(matches2to1))]
+    matchesMask_ratio = [[0,0] for i in range(len(matches2to1))]
     match_dict = {}
     for i,(m,n) in enumerate(matches2to1):
         if m.distance < 0.7*n.distance:
@@ -60,7 +60,7 @@ def feature_matching(img1, img2, savefig=False):
 
     good = []
     recip_matches = flann.knnMatch(des1,des2,k=2)
-    matchesMask_ratio_recip = [[0,0] for i in xrange(len(recip_matches))]
+    matchesMask_ratio_recip = [[0,0] for i in range(len(recip_matches))]
 
     for i,(m,n) in enumerate(recip_matches):
         if m.distance < 0.7*n.distance: # ratio
@@ -226,7 +226,7 @@ def Laplacian_blending(img1, img2):
     # generating Gaussian pyramids for both images
     gpImg1 = [img1.astype('float32')]
     gpImg2 = [img2.astype('float32')]
-    for i in xrange(levels):
+    for i in range(levels):
         img1 = cv2.pyrDown(img1)   # Downsampling using Gaussian filter
         gpImg1.append(img1.astype('float32'))
         img2 = cv2.pyrDown(img2)
@@ -236,7 +236,7 @@ def Laplacian_blending(img1, img2):
     lpImg1 = [gpImg1[levels]]
     lpImg2 = [gpImg2[levels]]
 
-    for i in xrange(levels,0,-1):
+    for i in range(levels,0,-1):
         # Upsampling and subtracting from upper level Gaussian pyramid image to get Laplacin pyramid image
         tmp = cv2.pyrUp(gpImg1[i]).astype('float32')
         tmp = cv2.resize(tmp, (gpImg1[i-1].shape[1],gpImg1[i-1].shape[0]))
@@ -252,8 +252,8 @@ def Laplacian_blending(img1, img2):
         # Merging first and second half of first and second images respectively at each level in pyramid
         mask1 = np.zeros(lImg1.shape)
         mask2 = np.zeros(lImg2.shape)
-        mask1[:, 0:cols/ 2] = 1
-        mask2[:, cols / 2:] = 1
+        mask1[:, 0:int(cols/ 2)] = 1
+        mask2[:, int(cols / 2):] = 1
 
         tmp1 = np.multiply(lImg1, mask1.astype('float32'))
         tmp2 = np.multiply(lImg2, mask2.astype('float32'))
@@ -262,7 +262,7 @@ def Laplacian_blending(img1, img2):
         laplacianList.append(tmp)
     
     img_out = laplacianList[0]
-    for i in xrange(1,levels+1):
+    for i in range(1,levels+1):
         img_out = cv2.pyrUp(img_out)   # Upsampling the image and merging with higher resolution level image
         img_out = cv2.resize(img_out, (laplacianList[i].shape[1],laplacianList[i].shape[0]))
         img_out = np.add(img_out, laplacianList[i])
