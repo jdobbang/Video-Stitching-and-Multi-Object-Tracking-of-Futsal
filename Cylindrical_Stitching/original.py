@@ -1,6 +1,4 @@
-# Instructions:
-# Do not change the output file names, use the helper functions as you see fit
-
+#
 import os
 import sys
 import cv2
@@ -254,6 +252,8 @@ def Laplacian_blending(img1, img2):
         mask2 = np.zeros(lImg2.shape)
         mask1[:, 0:int(cols/ 2)] = 1
         mask2[:, int(cols / 2):] = 1
+        imshow("mask1",mask1)
+        cv2.waitKey(0)
 
         tmp1 = np.multiply(lImg1, mask1.astype('float32'))
         tmp2 = np.multiply(lImg2, mask2.astype('float32'))
@@ -345,8 +345,9 @@ def Laplacian_cylindrical_warping(img1, img2, img3):
     transformedMask2 = cv2.warpAffine(mask2, M21, (img1cyl.shape[1],img1cyl.shape[0]))
     
     # Stich image1 and image2 using mask.
-    transformedImage21 = Stitch_images(img1cyl, transformedImage2, transformedMask2)
-    
+    transformedImage21 = Laplacian_blending(img1cyl, transformedImage2, transformedMask2)
+    imshow("transformedImage21", transformedImage21)
+    cv2.waitKey(0)
     # Transformation image3 in plane of image1.
     (M31, pts2, pts1, mask5) = getTransform(img3cyl, img1cyl, 'affine')
 
@@ -356,10 +357,12 @@ def Laplacian_cylindrical_warping(img1, img2, img3):
     
     # Combine both transformed images using Laplacian.
     output_image = Laplacian_blending(transformedImage31, transformedImage21)
-    
+    cv2.imshow("output",output_image)
+    cv2.waitKey(0)
+    """
     output_name = sys.argv[5] + "output_cylindrical_lpb.png"
     cv2.imwrite(output_name, output_image)
-    
+    """
     return True
 
 

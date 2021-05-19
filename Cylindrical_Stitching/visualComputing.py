@@ -1,5 +1,4 @@
-# Instructions:
-# Do not change the output file names, use the helper functions as you see fit
+# 마스크 적용, 실패
 import os
 import sys
 import cv2
@@ -243,9 +242,9 @@ def Laplacian_cylindrical_warping(img1, img2, img3):
     return True
 
 #이미지 입력  
-input_image1 = cv2.imread("./input1.png",0)
-input_image2 = cv2.imread("./input2.png",0)
-input_image3 = cv2.imread("./input3.png",0) 
+input_image1 = cv2.imread("./input/input1.png",0)
+input_image2 = cv2.imread("./input/input2.png",0)
+input_image3 = cv2.imread("./input/input3.png",0) 
 
 # 원기둥 좌표계 상의 라플라시안 블렌딩 스티칭 함
 Laplacian_cylindrical_warping(input_image1, input_image2, input_image3)
