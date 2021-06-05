@@ -53,38 +53,62 @@ def feature_matching(img1, img2, savefig=False):
 
 def cylindricalWarpImage(img1, K, savefig=False):
     f = K[0,0]
+    if len(img1.shape) == 3:
+        im_h,im_w,im_c = img1.shape
+        
+        # go inverse from cylindrical coord to the image
+        # (this way there are no gaps)
+        cyl = np.zeros_like(img1)
+        cyl_mask = np.zeros_like(img1)
+        cyl_h,cyl_w,cyl_c = cyl.shape
+        x_c = float(cyl_w) / 2.0
+        y_c = float(cyl_h) / 2.0
+        for x_cyl in np.arange(0,cyl_w):
+            for y_cyl in np.arange(0,cyl_h):
+                theta = (x_cyl - x_c) / f
+                h     = (y_cyl - y_c) / f
+    
+                X = np.array([math.sin(theta), h, math.cos(theta)])
+                X = np.dot(K,X)
+                x_im = X[0] / X[2]
+                if x_im < 0 or x_im >= im_w:
+                    continue
+    
+                y_im = X[1] / X[2]
+                if y_im < 0 or y_im >= im_h:
+                    continue
+    
+                cyl[int(y_cyl),int(x_cyl)] = img1[int(y_im),int(x_im)]
+                cyl_mask[int(y_cyl),int(x_cyl)] = 255
 
-    im_h,im_w = img1.shape
+    if len(img1.shape) == 2:
+        im_h,im_w = img1.shape
+    
+        # go inverse from cylindrical coord to the image
+        # (this way there are no gaps)
+        cyl = np.zeros_like(img1)
+        cyl_mask = np.zeros_like(img1)
+        cyl_h,cyl_w = cyl.shape
+        x_c = float(cyl_w) / 2.0
+        y_c = float(cyl_h) / 2.0
+        for x_cyl in np.arange(0,cyl_w):
+            for y_cyl in np.arange(0,cyl_h):
+                theta = (x_cyl - x_c) / f
+                h     = (y_cyl - y_c) / f
+    
+                X = np.array([math.sin(theta), h, math.cos(theta)])
+                X = np.dot(K,X)
+                x_im = X[0] / X[2]
+                if x_im < 0 or x_im >= im_w:
+                    continue
+    
+                y_im = X[1] / X[2]
+                if y_im < 0 or y_im >= im_h:
+                    continue
+    
+                cyl[int(y_cyl),int(x_cyl)] = img1[int(y_im),int(x_im)]
+                cyl_mask[int(y_cyl),int(x_cyl)] = 255
 
-    # go inverse from cylindrical coord to the image
-    # (this way there are no gaps)
-    cyl = np.zeros_like(img1)
-    cyl_mask = np.zeros_like(img1)
-    cyl_h,cyl_w = cyl.shape
-    x_c = float(cyl_w) / 2.0
-    y_c = float(cyl_h) / 2.0
-    for x_cyl in np.arange(0,cyl_w):
-        for y_cyl in np.arange(0,cyl_h):
-            theta = (x_cyl - x_c) / f
-            h     = (y_cyl - y_c) / f
-
-            X = np.array([math.sin(theta), h, math.cos(theta)])
-            X = np.dot(K,X)
-            x_im = X[0] / X[2]
-            if x_im < 0 or x_im >= im_w:
-                continue
-
-            y_im = X[1] / X[2]
-            if y_im < 0 or y_im >= im_h:
-                continue
-
-            cyl[int(y_cyl),int(x_cyl)] = img1[int(y_im),int(x_im)]
-            cyl_mask[int(y_cyl),int(x_cyl)] = 255
-
-
-    if savefig:
-        plt.imshow(cyl, cmap='gray')
-        plt.savefig("cyl.png",bbox_inches='tight')
 
     return (cyl,cyl_mask)
 
@@ -132,7 +156,7 @@ def Laplacian_blending(img1, img2):
 
     laplacianList = []
     for lImg1,lImg2 in zip(lpImg1,lpImg2):
-        rows,cols = lImg1.shape
+        rows,cols,c = lImg1.shape
         # Merging first and second half of first and second images respectively at each level in pyramid
         mask1 = np.zeros(lImg1.shape)
         mask2 = np.zeros(lImg2.shape)
@@ -156,7 +180,7 @@ def Laplacian_blending(img1, img2):
 def Laplacian_cylindrical_warping(M21,img1, img2):
     
     # Write your codes here
-    h,w = img1.shape
+    h,w,c = img1.shape
     f =520
     K = np.array([[f, 0, w/2], [0, f, h/2], [0, 0, 1]]) # mock calibration matrix
     (img1cyl, mask1) = cylindricalWarpImage(img1, K)  #Returns: (image, mask)
@@ -164,11 +188,9 @@ def Laplacian_cylindrical_warping(M21,img1, img2):
     #(img3cyl, mask3) = cylindricalWarpImage(img3, K)
     
     # Add padding to allow space around the center image to paste other images.
-    img1cyl = cv2.copyMakeBorder(img1cyl,50,50,300,300, cv2.BORDER_CONSTANT)
-    
+    img1cyl = cv2.copyMakeBorder(img1cyl,50,50,300,300, cv2.BORDER_CONSTANT)    
     transformedImage2 = cv2.warpAffine(img2cyl, M21, (img1cyl.shape[1],img1cyl.shape[0]))
-    cv2.imshow("transformedImage2",transformedImage2)
-    cv2.waitKey(0)
+
     # Stich image1 and image2 using mask.
     transformedImage21 = Laplacian_blending( img1cyl,transformedImage2)
 
@@ -201,27 +223,37 @@ ret2, frame2 = cap2.read()
 input_image1 = cv2.cvtColor(frame1, cv2.COLOR_BGR2GRAY)
 input_image2 = cv2.cvtColor(frame2, cv2.COLOR_BGR2GRAY)
 
- #resize
+#resize gray
 image1_resize = cv2.resize(input_image1, dsize=(0, 0), fx=0.3, fy=0.3, interpolation=cv2.INTER_LINEAR)
 image2_resize = cv2.resize(input_image2, dsize=(0, 0), fx=0.3, fy=0.3, interpolation=cv2.INTER_LINEAR)
-
+#calculate matrix
 M21 = Laplacian_cylindrical_warping_Calculation(image1_resize,image2_resize)
-    
+i=1
 while(1):
     #read frame
     ret1, frame1 = cap1.read()
     ret2, frame2 = cap2.read() 
     
     #gray scale : 일단은 option
-    input_image1 = cv2.cvtColor(frame1, cv2.COLOR_BGR2GRAY)
-    input_image2 = cv2.cvtColor(frame2, cv2.COLOR_BGR2GRAY)
-    
+    #input_image1 = cv2.cvtColor(frame1, cv2.COLOR_BGR2GRAY)
+    #input_image2 = cv2.cvtColor(frame2, cv2.COLOR_BGR2GRAY)
+    input_image1 = frame1
+    input_image2 = frame2
+
     #resize
     image1_resize = cv2.resize(input_image1, dsize=(0, 0), fx=0.3, fy=0.3, interpolation=cv2.INTER_LINEAR)
     image2_resize = cv2.resize(input_image2, dsize=(0, 0), fx=0.3, fy=0.3, interpolation=cv2.INTER_LINEAR)
+    
     # Call the function and show the frames
     output = Laplacian_cylindrical_warping(M21,image1_resize, image2_resize)
-    cv2.imshow("output",output)
+    cv2.imshow("before cropping",output)
+    output = output[114:311,390:1149]
+    cv2.imshow("after cropping",output)
+    cv2.waitKey(0)
+    #filename = str('./cylindricalFrames_new/') + str(i).zfill(5) + str('.jpg')
+    #cv2.imwrite(filename,output)
+    
+    i+=1
     if cv2.waitKey(30) & 0xFF == ord('q'):
         break
 
