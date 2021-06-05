@@ -54,9 +54,11 @@ Visual Data2 : average location of person_ID_1
 Visual Data3 : minimap
 
 original minimap
+
 ![img](./img/minimap_original.png)
 
 line added minimap
+
 ![img](./img/minimap_line.png)
 
 
