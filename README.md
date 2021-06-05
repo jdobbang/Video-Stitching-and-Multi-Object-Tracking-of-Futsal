@@ -16,9 +16,9 @@ We need stitching of two videos for the entire view of the field
 Warping using SIFT algorithm(@sift_video.cpp)
 ![img](./img/frame.png)
 Warping by user defined homography 
-![img](./img/HomographyControl.png)
-Crop version( user defined homography)(@ StitchingControl.cpp)
 ![img](./img/frame00001.jpg)
+Warping by Cylindrical Laplcian Blending
+![img](./Cylindrical_Stitching/cylindricalFrames_new/00001.jpg)
 
 ## Tracking Frame 
 We use DeepSORT algorithm to track multi-objects(players,ball)
@@ -29,6 +29,9 @@ Track the user defined homography stitching + coordinate point (DeepSORT + YOLOv
 ![img](./img/tracking+.jpg)
 Track the user defined homography stitching + cooordinate point + ball class added (DeepSORT + YOLOv4)
 ![img](./img/YOLOv4_tracking.png)
+Track the Cylindrical Laplacian stitching + coordinate point + ball class added
+(DeepSORT + YOLO4)
+![img](./img/cylindrical_tracking_frame.jpg)
 ## Data Visualization
 
 We first have to convert pixel coordinate to real world coordination by calculating perspective homography
@@ -37,13 +40,24 @@ field width : 17.06 m / field heigth : 7.05 m (multiply 28 for easy visualizatio
 
 pixel coordinate : left-top [165,130] , left-bottom [2,270] , right-bottom [870,263], right-top [701,131]
 
-hit map of person_ID_1
+Numerical Data1 : Activity + Speed
+![img](./img/activity_speed.png)
+
+Visual Data1 : hit map of person_ID_1
 
 ![img](./img/heatMap.JPG)
 
-average location of person_ID_1
+Visual Data2 : average location of person_ID_1
 
 ![img](./img/averageLocation.JPG)
+
+Visual Data3 : minimap
+
+original minimap
+![img](./img/minimap_original.png)
+
+line added minimap
+![img](./img/minimap_line.png)
 
 
 
