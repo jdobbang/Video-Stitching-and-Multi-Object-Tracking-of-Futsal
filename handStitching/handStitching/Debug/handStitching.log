@@ -1,0 +1,2 @@
+﻿  StitchingControl.cpp
+C:\Users\ehgus\Desktop\github\Video-Stitching-and-Multi-Object-Tracking-of-Futsal\StitchingControl.cpp(2,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'opencv2/core.hpp': No such file or directory

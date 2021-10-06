@@ -24,7 +24,6 @@ using namespace cv;
 int frameWidth = 640;
 int frameHeight = 480;
 
-
 class LaplacianBlending {
 private://¼±¾ðºÎ
 	Mat_<Vec3f> left;
@@ -143,7 +142,6 @@ int main() {
 	// check if capture was successful
 	if (!capture.isOpened()) throw "Error reading video";
 	if (!capture2.isOpened()) throw "Error reading video";
-
 
 	int alpha_ = 90, beta_ = 90, gamma_ = 90, dx_ = 0, dy_ = 0;
 	int f_ = 500, dist_ = 500;
