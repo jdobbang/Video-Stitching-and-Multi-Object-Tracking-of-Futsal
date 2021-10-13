@@ -66,7 +66,8 @@ e2 = Entry(window, width = 30)
 e2.pack()
 e2.insert(0,"종료 프레임")
 
-btn2 =  Button(window, text = "자르기", command = lambda: edit.cut('./input/video_left.mp4', e1.get(), e2.get()))
+#btn2 =  Button(window, text = "자르기", command = lambda: edit.cut('./input/video_left.mp4', e1.get(), e2.get()))
+btn2 =  Button(window, text = "자르기", command = lambda: edit.cut(filename_record['left_video'], e1.get(), e2.get()))
 btn2.pack()
 
 txt2 = Text(window,width=30,height=5)
@@ -80,7 +81,8 @@ e4 = Entry(window, width = 30)
 e4.pack()
 e4.insert(0,"종료 프레임")
 
-btn4 =  Button(window, text = "자르기", command = lambda: edit.cut('./input/video_right.mp4',e3.get(),e4.get()))
+#btn4 =  Button(window, text = "자르기", command = lambda: edit.cut('./input/video_right.mp4',e3.get(),e4.get()))
+btn4 =  Button(window, text = "자르기", command = lambda: edit.cut(filename_record['right_video'],e3.get(),e4.get()))
 btn4.pack()
 
 # 네 모서리 입력
@@ -104,7 +106,7 @@ e8 = Entry(window, width = 30)
 e8.pack()
 e8.insert(0,"우상y")
 
-btn3 =  Button(window, text = "프레임 생성", command = lambda: st.stitch(e5.get(),e6.get(),e7.get(),e8.get(),filename_record['left_video'],filename_record['right_video']) )
+btn3 =  Button(window, text = "프레임 생성", command = lambda: st.stitch(e5.get(),e6.get(),e7.get(),e8.get(),"C:/Users/ehgus/Desktop/github/Video_Stitching_and_Multi_Object_Tracking_of_Futsal/Cylindrical_Stitching/output/left_cut.mp4","C:/Users/ehgus/Desktop/github/Video_Stitching_and_Multi_Object_Tracking_of_Futsal/Cylindrical_Stitching/output/right_cut.mp4") )
 btn3.pack()
 
 btn4 = Button(window, text = "동영상 생성", command = lambda:f2v.makeVideo())

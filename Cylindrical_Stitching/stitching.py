@@ -254,7 +254,7 @@ def stitch(ltx,lty,rbx,rby,left_video,right_video):
         output1 = Laplacian_cylindrical_warping(M21,image1_resize, image2_resize)
         output2 = output1[int(lty):int(rby),int(ltx):int(rbx)]
         
-        filename = str('./cylindricalFrames/') + str(i).zfill(5) + str('.jpg')
+        filename = str("C:/Users/ehgus/Desktop/github/Video_Stitching_and_Multi_Object_Tracking_of_Futsal/Cylindrical_Stitching/cylindricalFrames/") + str(i).zfill(5) + str('.jpg')
         cv2.imwrite(filename,output2)
         
         print(i,"번째 frame")

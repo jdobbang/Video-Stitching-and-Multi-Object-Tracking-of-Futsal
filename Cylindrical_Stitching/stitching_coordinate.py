@@ -223,8 +223,8 @@ def stitch():
     cv2.namedWindow('before cropping')  #마우스 이벤트 영역 윈도우 생성
     cv2.setMouseCallback('before cropping', mouse_callback) 
 
-    cap1 = cv2.VideoCapture("./input/video_left.mp4")
-    cap2 = cv2.VideoCapture("./input/video_right.mp4")
+    cap1 = cv2.VideoCapture("C:/Users/ehgus/Desktop/github/Video_Stitching_and_Multi_Object_Tracking_of_Futsal/Cylindrical_Stitching/output/left_cut.mp4")
+    cap2 = cv2.VideoCapture("C:/Users/ehgus/Desktop/github/Video_Stitching_and_Multi_Object_Tracking_of_Futsal/Cylindrical_Stitching/output/right_cut.mp4")
     
     ret1, frame1 = cap1.read()
     ret2, frame2 = cap2.read()
