@@ -6,12 +6,17 @@ Stitching multi-videos into an entire view of futsal game and analyze it by trac
 We expect that we can take the top-down view by this tripod at all type of futsal field   
 ![img](./img/camera.jpg)
 
-## Left, Right Source Frame : filmed by smart phones 
+### Stitching and Tracking two videos by Tkinter GUI Program
+![img](./img/guiSample.png)
+
+## Open Left, Right Source Frame 
 ![img](./img/left.JPG)
 ![img](./img/right.JPG) 
 
-## Stitched Frame 
-We need stitching of two videos for the entire view of the field
+## Check a Pre-Stitched Frame 
+We need two decide 6 points. 2 points for cropping and 4 points for converting coordinates to the real data.
+
+![img](./img/mouseClick.png)
 
 Warping using SIFT algorithm(@sift_video.cpp)
 ![img](./img/frame.png)
@@ -61,5 +66,7 @@ line added minimap
 
 ![img](./img/minimap_line.png)
 
+Flask webServer 
+![img](./img/webSample.png)
 
 
