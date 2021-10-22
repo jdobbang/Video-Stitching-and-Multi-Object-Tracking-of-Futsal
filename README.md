@@ -40,7 +40,7 @@ We expect that we can take the top-down view by this 4m tripod at all type of fu
 
 <img src = "https://user-images.githubusercontent.com/55488114/129470670-a70d71e7-9dec-4bbd-8445-4026ff578390.gif" width = "200">
 
-<img src = "https://github.com/jdobbang/Video-Stitching-and-Multi-Object-Tracking-of-Futsal/blob/a434084d9ecc4355b1092a2a30bc5e0783b084a4/img/ezgif.com-gif-maker3.gif" width = "200">
+<img src = "https://github.com/jdobbang/Video-Stitching-and-Multi-Object-Tracking-of-Futsal/blob/a434084d9ecc4355b1092a2a30bc5e0783b084a4/img/ezgif.com-gif-maker3.gif" width = "500">
 
 ## 영상 녹화 결과 영상 (일부)
 
