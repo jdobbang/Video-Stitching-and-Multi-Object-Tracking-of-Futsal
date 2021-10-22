@@ -37,11 +37,11 @@ We use DeepSORT algorithm to track multi-objects(players,ball) and produce csv c
 
 Version 1.0 : DeepSORT + YOLOv3
 
-< img src = "https://github.com/jdobbang/Video-Stitching-and-Multi-Object-Tracking-of-Futsal/blob/c7fc592a3e6bb6019d8cf6903cb1dd4a6ac015c8/img/tracking+.jpg" width = "200">
+<img src = "https://github.com/jdobbang/Video-Stitching-and-Multi-Object-Tracking-of-Futsal/blob/c7fc592a3e6bb6019d8cf6903cb1dd4a6ac015c8/img/tracking+.jpg" width ="200">
      
 Version 2.0 (DeepSORT + YOLOv4
 
-< img src = "https://github.com/jdobbang/Video-Stitching-and-Multi-Object-Tracking-of-Futsal/blob/0380f7335d544f9680e37bb49efe4f53a08c0c8a/img/tracking+.jpg" width="200" >
+<img src = "https://github.com/jdobbang/Video-Stitching-and-Multi-Object-Tracking-of-Futsal/blob/00021117bde96fe45e082746e3573b34c4347de0/img/YOLOv4_tracking.png" width="200" >
      
 Version 2.1 : DeepSORT + YOLO4
 
