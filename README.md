@@ -5,42 +5,45 @@
 ## Goal 
 Stitching multi-videos into an entire view of futsal game and analyze it by tracking players and a ball
 
-## Camera : Top down view ( 4m ) 
-We expect that we can take the top-down view by this tripod at all type of futsal field   
-![img](./img/camera.jpg)
-<img src = "https://github.com/jdobbang/Video-Stitching-and-Multi-Object-Tracking-of-Futsal/blob/6c883fdc7a7acb1867168b5a27a8355951b6201e/img/camera.jpg" width = "100">
+## Creating Top down view Video 
+We expect that we can take the top-down view by this 4m tripod at all type of futsal field   
+<img src = "https://github.com/jdobbang/Video-Stitching-and-Multi-Object-Tracking-of-Futsal/blob/6c883fdc7a7acb1867168b5a27a8355951b6201e/img/camera.jpg" width = "200">
 
 ### Stitching and Tracking two videos by Tkinter GUI Program
-![img](./img/guiSample.png)
+<img src = "https://github.com/jdobbang/Video-Stitching-and-Multi-Object-Tracking-of-Futsal/blob/646b6fbc91d56f845c8e6567a7147af7f8c62c8f/img/guiSample.png" width = "200">
 
 ## Open Left, Right Source Frame 
-![img](./img/left.JPG)
-![img](./img/right.JPG) 
+<img src = "https://github.com/jdobbang/Video-Stitching-and-Multi-Object-Tracking-of-Futsal/blob/646b6fbc91d56f845c8e6567a7147af7f8c62c8f/img/left.JPG" width = "200">
+<img src = "https://github.com/jdobbang/Video-Stitching-and-Multi-Object-Tracking-of-Futsal/blob/646b6fbc91d56f845c8e6567a7147af7f8c62c8f/img/right.JPG" width = "200">
 
 ## Check a Pre-Stitched Frame 
 We need two decide 6 points. 2 points for cropping and 4 points for converting coordinates to the real data.
 
 ![img](./img/mouseClick.png)
 
-Warping using SIFT algorithm(@sift_video.cpp)
-![img](./img/frame.png)
-Warping by user defined homography 
-![img](./img/frame00001.jpg)
-Warping by Cylindrical Laplcian Blending
+## Stitching
+Version 1.0 : Perspective transform 
+<img src = "https://github.com/jdobbang/Video-Stitching-and-Multi-Object-Tracking-of-Futsal/blob/646b6fbc91d56f845c8e6567a7147af7f8c62c8f/img/frame.png" width = "200">
+
+Version 2.0 : User defined homography 
+<img src = "https://github.com/jdobbang/Video-Stitching-and-Multi-Object-Tracking-of-Futsal/blob/646b6fbc91d56f845c8e6567a7147af7f8c62c8f/img/HomographyControl.png" width = "200">
+
+Version 3.0 : Warping by Cylindrical Laplcian Blending
 ![img](./Cylindrical_Stitching/cylindricalFrames_new/00001.jpg)
 
-## Tracking Frame 
+## Tracking
 We use DeepSORT algorithm to track multi-objects(players,ball)
 
-Track the initial version of stitching (DeepSORT + YOLOv3)
+Version 1.0 : DeepSORT + YOLOv3
 ![img](./img/tracking.JPG)
-Track the user defined homography stitching + coordinate point (DeepSORT + YOLOv3 , @object_trackin.py)
 ![img](./img/tracking+.jpg)
-Track the user defined homography stitching + cooordinate point + ball class added (DeepSORT + YOLOv4)
+
+Version 2.0 (DeepSORT + YOLOv4
 ![img](./img/YOLOv4_tracking.png)
-Track the Cylindrical Laplacian stitching + coordinate point + ball class added
-(DeepSORT + YOLO4)
+
+Version 2.1 : DeepSORT + YOLO4
 ![img](./img/cylindrical_tracking_frame.jpg)
+
 ## Data Visualization
 
 We first have to convert pixel coordinate to real world coordination by calculating perspective homography
