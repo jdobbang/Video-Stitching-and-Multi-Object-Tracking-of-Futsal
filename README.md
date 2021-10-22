@@ -30,7 +30,7 @@ Version 2.0 : User defined homography
 
 Version 3.0 : Warping by Cylindrical Laplcian Blending
 
-<img src = "https://github.com/jdobbang/Video-Stitching-and-Multi-Object-Tracking-of-Futsal/blob/0380f7335d544f9680e37bb49efe4f53a08c0c8a/img/cylindricalFrame.png" width = "200"
+<img src = "https://github.com/jdobbang/Video-Stitching-and-Multi-Object-Tracking-of-Futsal/blob/0380f7335d544f9680e37bb49efe4f53a08c0c8a/img/cylindricalFrame.png" width = "200">
 
 ## Step4: Tracking
 We use DeepSORT algorithm to track multi-objects(players,ball) and produce csv coordinate file
