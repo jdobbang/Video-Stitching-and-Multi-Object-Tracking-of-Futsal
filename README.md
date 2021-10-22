@@ -8,7 +8,7 @@ Stitching multi-videos into an entire view of futsal game and analyze it by trac
 ## Camera : Top down view ( 4m ) 
 We expect that we can take the top-down view by this tripod at all type of futsal field   
 ![img](./img/camera.jpg)
-<img src = "https://github.com/jdobbang/Video-Stitching-and-Multi-Object-Tracking-of-Futsal/blob/6c883fdc7a7acb1867168b5a27a8355951b6201e/img/camera.jpg" widht = "200">
+<img src = "https://github.com/jdobbang/Video-Stitching-and-Multi-Object-Tracking-of-Futsal/blob/6c883fdc7a7acb1867168b5a27a8355951b6201e/img/camera.jpg" width = "100">
 
 ### Stitching and Tracking two videos by Tkinter GUI Program
 ![img](./img/guiSample.png)
