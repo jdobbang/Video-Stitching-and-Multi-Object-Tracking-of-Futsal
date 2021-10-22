@@ -105,7 +105,7 @@ Version 2.1 : DeepSORT + YOLO4
 
 Version 3.0 : MOTR(Improved ID switching issue)
 
-<img src = "https://github.com/jdobbang/Video-Stitching-and-Multi-Object-Tracking-of-Futsal/blob/a434084d9ecc4355b1092a2a30bc5e0783b084a4/img/kinesis.jpg" width = "200" >
+<img src = "https://github.com/jdobbang/Video-Stitching-and-Multi-Object-Tracking-of-Futsal/blob/a434084d9ecc4355b1092a2a30bc5e0783b084a4/img/motr.jpg" width = "200" >
      
 ## Data Visualization
 
