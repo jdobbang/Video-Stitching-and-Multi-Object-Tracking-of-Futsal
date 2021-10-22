@@ -7,6 +7,20 @@ work added : webRTC(by chaeyeon4u), kinesis(by hkjs96) , MOTR(by heosuab)
 ## Goal 
 Stitching multi-videos into an entire view of futsal game and analyze it by tracking players and a ball
 
+# 촬영앱
+
+## 로그인앱
+
+<img src = "https://github.com/jdobbang/Video-Stitching-and-Multi-Object-Tracking-of-Futsal/blob/a434084d9ecc4355b1092a2a30bc5e0783b084a4/img/Login.png" width = "200" >
+
+## 회원가입
+
+<img src = "https://github.com/jdobbang/Video-Stitching-and-Multi-Object-Tracking-of-Futsal/blob/a434084d9ecc4355b1092a2a30bc5e0783b084a4/img/Signup.png" width = "200" >
+     
+## 메뉴
+     
+<img src = "https://github.com/jdobbang/Video-Stitching-and-Multi-Object-Tracking-of-Futsal/blob/a434084d9ecc4355b1092a2a30bc5e0783b084a4/img/menu.png" width="200">
+
 ## Creating Top down view Video 
 We expect that we can take the top-down view by this 4m tripod at all type of futsal field   
 <img src = "https://github.com/jdobbang/Video-Stitching-and-Multi-Object-Tracking-of-Futsal/blob/6c883fdc7a7acb1867168b5a27a8355951b6201e/img/camera.jpg" width = "200">
@@ -52,18 +66,6 @@ We expect that we can take the top-down view by this 4m tripod at all type of fu
 Monitoring scenes from two device on a single page
      
 <img src ="https://github.com/jdobbang/Video-Stitching-and-Multi-Object-Tracking-of-Futsal/blob/a434084d9ecc4355b1092a2a30bc5e0783b084a4/img/kinesis.jpg" width = "200">
-
-## 로그인
-
-<img src = "https://github.com/jdobbang/Video-Stitching-and-Multi-Object-Tracking-of-Futsal/blob/a434084d9ecc4355b1092a2a30bc5e0783b084a4/img/Login.png" width = "200" >
-
-## 회원가입
-
-<img src = "https://github.com/jdobbang/Video-Stitching-and-Multi-Object-Tracking-of-Futsal/blob/a434084d9ecc4355b1092a2a30bc5e0783b084a4/img/Signup.png" width = "200" >
-     
-## 메뉴
-     
-<img src = "https://github.com/jdobbang/Video-Stitching-and-Multi-Object-Tracking-of-Futsal/blob/a434084d9ecc4355b1092a2a30bc5e0783b084a4/img/menu.png" width="200">
     
 ### Stitching and Tracking two videos by Tkinter GUI Program (step1~step )
 <img src = "https://github.com/jdobbang/Video-Stitching-and-Multi-Object-Tracking-of-Futsal/blob/646b6fbc91d56f845c8e6567a7147af7f8c62c8f/img/guiSample.png" width = "200">
@@ -105,7 +107,7 @@ Version 2.1 : DeepSORT + YOLO4
 
 Version 3.0 : MOTR(Improved ID switching issue)
 
-<img src = "https://github.com/jdobbang/Video-Stitching-and-Multi-Object-Tracking-of-Futsal/blob/a434084d9ecc4355b1092a2a30bc5e0783b084a4/img/motr.jpg" width = "200" >
+<img src = "https://github.com/jdobbang/Video-Stitching-and-Multi-Object-Tracking-of-Futsal/blob/a434084d9ecc4355b1092a2a30bc5e0783b084a4/img/motr.JPG" width = "200" >
      
 ## Data Visualization
 
