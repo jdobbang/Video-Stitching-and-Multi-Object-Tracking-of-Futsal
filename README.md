@@ -2,7 +2,7 @@
 
 ## work added : webRTC(by @chaeyeon4u), kinesis(by @hkjs96) , MOTR(by @heosuab)
 
-### You can watch demo video from here : https://www.youtube.com/watch?v=t8mXEbXQEL0
+### You can watch demo video from here : https://youtu.be/bA6G8tl7K14
 
 ### Goal 
 Stitching multi-videos into an entire view of futsal game and analyze it by tracking players and a ball
